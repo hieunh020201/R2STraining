@@ -3,6 +3,7 @@ package r2s.training.entities;
 import java.util.Date;
 
 public class Order {
+    public static int numbee = 0;
     private String number;
 
     private Date date;
