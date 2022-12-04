@@ -13,10 +13,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CustomerService {
-    public List<Customer> customers = new ArrayList<>();
+
+//    Tham khảo sử dụng static List<Customer> từ https://github.com/IsPhatDatt/R2STraining
+    public static List<Customer> customers;
     public void createCustomer(){
         Scanner scanner = new Scanner(System.in);
-
+        customers = new ArrayList<>();
         while (true) {
             System.out.println("----Enter Customer information---");
 
@@ -137,19 +139,10 @@ public class CustomerService {
     public void display(List<Customer> customers) {
         for (Customer customer: customers) {
             System.out.println("Customer[name="+ customer.getName() +", phone="+ customer.getPhone()
-                    +", address="+ customer.getAddress()+", Order[]]");
+                    +", address="+ customer.getAddress()+", Order[]]\n");
         }
     }
 
-    public List<Order> search(String phone) {
-        List<Order> result = new ArrayList<>();
-        for (Customer customer: customers) {
-            if (customer.getPhone().equals(phone)) {
-                result.addAll(customer.getOrders());
-            }
-        }
-        return result;
-    }
 
     public boolean remove(String phone) {
         for (Customer customer: customers) {
