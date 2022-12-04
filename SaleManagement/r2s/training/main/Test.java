@@ -3,6 +3,7 @@ package r2s.training.main;
 import r2s.training.entities.Customer;
 import r2s.training.entities.Order;
 import r2s.training.services.CustomerService;
+import r2s.training.services.OrderService;
 import r2s.training.utils.Validator;
 
 import java.text.DateFormat;
@@ -15,6 +16,7 @@ import java.util.Scanner;
 public class Test {
     public static void main(String[] args) {
         CustomerService customerService = new CustomerService();
+        OrderService orderService = new OrderService();
         Scanner scanner = new Scanner(System.in);
         boolean notExit = true;
         while (notExit) {
@@ -33,28 +35,33 @@ public class Test {
                 case "2": {
                     System.out.println("List of Customer:");
                     List<Customer> customers = customerService.findAll();
-                    customerService.display(customers);
+                    if (customers == null) {
+                        System.out.println("List is empty\n");
+                    } else {
+                        customerService.display(customers);
+                    }
                     break;
                 }
                 case "3": {
                     System.out.println("----Search Order----");
                     System.out.print("Enter phone: ");
                     String phone = scanner.nextLine();
-                    List<Order> orders = customerService.search(phone);
+                    List<Order> orders = orderService.search(phone);
                     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                     for (Order order: orders) {
                         System.out.println("Order number: " + order.getNumber() + ", date: " + df.format(order.getDate())
-                                + ", quantity: "  + order.getQuantity() + ", price: "  + order.getPrice());
+                                + ", quantity: "  + order.getQuantity() + ", price: "  + order.getPrice() + "\n");
                     }
                     break;
                 }
                 case "4": {
                     System.out.println("----Remove Customer----");
+                    System.out.print("Enter phone: ");
                     String phone = scanner.nextLine();
                     if (customerService.remove(phone)) {
-                        System.out.println("Remove successfully");
+                        System.out.println("Remove successfully\n");
                     } else {
-                        System.out.println("Remove failed");
+                        System.out.println("Remove failed\n");
                     }
                     break;
                 }
